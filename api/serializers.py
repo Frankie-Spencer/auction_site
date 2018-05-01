@@ -61,10 +61,17 @@ class BidCreateSerializer(ModelSerializer):
 
         user_email = loggeduser.email
         user_name = loggeduser.first_name
+        bid_receiver_email = auction.seller.email
+        bid_receiver_name = auction.seller.first_name
 
         send_mail('A bid has been placed!',
                   'Hi ' + str(user_name) + ' !, ' +
                   'you have placed a bid for the auction ' + str(auction.title) + '.',
                   'noreplay@yaas.com', [user_email], fail_silently=False)
+
+        send_mail('A bid has been received!',
+                  'Hi ' + str(bid_receiver_name) + ' !, ' +
+                  'you have received a bid for the auction ' + str(auction.title) + '.',
+                  'noreplay@yaas.com', [bid_receiver_email], fail_silently=False)
 
         return data
