@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <a class="card_single">
+     <h2 align="left"><strong style="color:blue;">{{ auction_title }}</strong> </h2>
+         {% if current_bid %}
+    <h4 style="color: green;">Current bid: {{ current_bid }}</h4>
+    <h4>Started price: {{ auction_price }}</h4>
+        {% endif %}
+        {% if not current_bid %}
+    <h4 style="color: green;">Starting price: {{ auction_price }} | No bids yet </h4>
+        {% endif %}
+     <p>Description: {{ auction_description }}</p>
+     <p>Deadline: {{ auction_deadline|date:"d.m.Y H:i" }}</p>
+     <p>Created: {{ auction_created|date:"d.m.Y H:i" }}</p>
+     <p>Time left: {{ time_left }}</p>
+     <p>Seller: {{ seller }}</p>
+     <p>Auction number: {{ auction_id }}</p>
+    </a>
+</form>
+        <p></p>
+{% ifequal make_changes True %}
+        <form action="/editauction/{{ auction_id }}/">{% csrf_token %}
+        <input type="submit" class="button" value="Edit auction">
+        </form>
+    <br>
+        <form action="/deleteauction/{{ auction_id }}/">{% csrf_token %}
+        <input type="submit" class="button" onclick="return confirm('Are you sure you want to delete this auction?')" value="Delete auction">
+        </form>
+    <br>
+        <form action="/bidhistory/{{ auction_id }}/" method="POST" >
+        {% csrf_token %}
+        <input type="submit" class="button" value="View current bids">
+        </form>
+    <br><br>
+
+{% endifequal %}
+{% if user.is_superuser %}
+    {% if not auction.state == 'banned' %}
+        <form action="/banauction/{{ auction_id }}/" method="POST">{% csrf_token %}
+        <input type="submit" class="button" onclick="return confirm('Are you sure you want to delete this auction?')" value="Ban auction">
+        </form>
+    <br>
+    {% endif %}
+{% endif %}
+
+{% ifequal make_changes False %}
+        <form action="/bidauction/{{ auction_id }}/" method="POST" >
+        {% csrf_token %}
+        <input type="submit" class="button" value="Bid">
+        </form>
+        <br>
+{% endifequal %}
+
+<h2><a href="/auctions/" class="back_button">back</a></h2>
+
+{% endblock %}

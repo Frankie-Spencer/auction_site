@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if not user.is_authenticated  %}
+    <form action="/accounts/auth/" method="POST">{% csrf_token %} {{ form.as_p }}
+    <input type="submit" class="button" value="Login">
+    <p></p>
+
+    </form>
+    {% endif %}
+
+    {% if user.is_authenticated  %}
+        <form action="/accounts/logout/" method="POST">{% csrf_token %}
+            <h3 style="color:brown;">logout required</h3>
+    <input type="submit" class="button" value="Logout">
+    <p></p>
+
+    </form>
+    {% endif %}
+
+{% endblock %}

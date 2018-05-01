@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+<body>
+{% block content %}
+<form action="/accounts/userprofile/edit/">
+    {% csrf_token %}
+    <h3 style="color:royalblue">User profile</h3>
+    <p>Username: {{ user_name }} </p>
+    <P>First name: {{ user_first_name }} </P>
+    <P>Last name: {{ user_last_name }} </P>
+    <p>E-mail address: {{ user_email }} </p>
+
+    <input type="submit" class="button" value="Edit profile">
+            <br><br/>
+
+</form>
+
+<form action="/accounts/userprofile/reset-password/" method="POST">
+    {% csrf_token %}
+    <input type="submit" class="button" value="Click here to reset password">
+    <br><br/>
+</form>
+
+{% endblock %}
+</body>
+
+

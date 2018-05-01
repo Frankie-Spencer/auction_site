@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+<body>
+{% block content %}
+
+<form action = "" method="GET">
+    <br>
+    <div class="search_bar">
+    <input type="text" placeholder="Search auctions" name="q" value="{{ request.GET.q }}"/>
+    <input type="submit" class="button" value="Search"/>
+    </div>
+
+    <h4 style="color:darkred">{{ errmsg_search }}</h4>
+</form>
+
+{% for auction in auctions %}
+    <a class="card_list" href="/showauction/{{ auction.id }}/">
+    <h2 style="color: blue;">{{ auction.title }}</h2>
+        {% if auction.current_max_bid_obj %}
+    <h4 style="color: green;">Current bid: {{ auction.get_current_max_bid_obj }}</h4>
+    <h4>Started price: {{ auction.min_price }}</h4>
+        {% endif %}
+        {% if not auction.current_max_bid_obj %}
+    <h4 style="color: green;">Starting price: {{ auction.min_price }} | No bids yet </h4>
+        {% endif %}
+    <p>Deadline: {{ auction.deadline|date:"d.m.Y H:i" }}</p>
+    <p>Created: {{ auction.timestamp|date:"d.m.Y H:i" }}</p>
+    <p>Seller: {{ auction.seller }}</p>
+    <p>State: {{ auction.state }}</p>
+    </a>
+    <p></p>
+
+{% endfor %}
+    <div class="pagination">
+    <span class="step-links">
+        {% if auctions.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ auctions.previous_page_number }}&q={{ request.GET.q }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ auctions.number }} of {{ auctions.paginator.num_pages }}.
+        </span>
+
+        {% if auctions.has_next %}
+            <a href="?page={{ auctions.next_page_number }}&q={{ request.GET.q }}">next</a>
+            <a href="?page={{ auctions.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+    <p></p>
+{% endblock %}
+
+</body>
+
+<!--
+{% url "auctions:show_auction" id=auction.id %}
+    <h2><a href="{{ auction.get_absolute_url }}">{{ auction.title }}</a></h2>
+-->

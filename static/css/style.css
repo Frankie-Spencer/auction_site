@@ -1,0 +1,111 @@
+.card_list {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background-color: #EDF3FE;
+    padding-left: 20px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    color: black;
+
+    display: block;
+    text-decoration:  none;
+    width:555px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card_list:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
+}
+
+/* Add some padding inside the card container */
+.container {
+    padding: 2px 16px;
+}
+
+.card_single {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 15px 2px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background-color: #EDF3FE;
+    padding-left: 20px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    color: black;
+
+    display: block;
+    text-decoration:  none;
+    width:555px;
+}
+
+.card_history {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 15px 2px rgba(0,0,0,0);
+    border-radius: 10px;
+    background-color: lightblue;
+    padding-left: 20px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    color: black;
+
+
+
+    display: block;
+    text-decoration:  none;
+    width:555px;
+}
+
+/* Add some padding inside the card container */
+.container {
+    padding: 2px 16px;
+}
+
+.button {
+  display: inline-block;
+  padding: 6px 9px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.back_button {
+  display: inline-block;
+  padding: 6px 9px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #CC3434;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.button:hover {background-color: #3e8e41}
+.back_button:hover {background-color: #993333}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 1px #666;
+
+}
+.search_bar input[type="text"] {
+    background-color: ghostwhite;
+    background-image: url('search1.png');
+    background-position: 1px 1px;
+    padding: 4px 0 5px 35px;
+    size: 40px;
+    background-repeat: no-repeat;
+    border-radius: 7px;
+    font-size: 16px;
+    width: 465px;
+}

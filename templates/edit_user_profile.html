@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+<body>
+{% block content %}
+
+    <h3 style="color:royalblue">Edit User Profile</h3>
+    <form action='' method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" class="button" value="Submit changes">
+    </form>
+    <p></p>
+
+{% endblock %}
+</body>

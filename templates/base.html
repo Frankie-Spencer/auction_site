@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <title>{% block title %}YAAS{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/default.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+</head>
+
+<body>
+<h1>Auction Site</h1>
+
+{{ request.session.curerror }} <select id="maincurrency" onchange="parent.location='?currency='+this.value">
+<option value="BTC">Bitcoin</option>
+<option value="EUR">Euro</option>
+<option value="USD">United States Dollar</option>
+
+</select><br /><br />
+
+
+
+<div id="page">
+    <div id="sidebar">
+        {% block sidebar %}
+            {% if user.is_authenticated  %}
+            <h3 style=padding-left:20px;>User: <strong style="color:green;">{{ user }}</strong> </h3>
+            {% endif %}
+            <ul>
+            <li><a href="/auctions/">Auctions</a></li>
+            <li><a href="/auctions/create/">Add auction</a></li>
+            <br>
+            {% if not user.is_authenticated  %}
+            <li><a href="/accounts/login/">Login</a></li>
+            {% endif %}
+            {% if user.is_authenticated  %}
+            <li><a href="/accounts/logout/">Logout</a></li>
+            {% endif %}
+            {% if not user.is_authenticated  %}
+            <li><a href="/accounts/registeruser/">Register</a></li><br>
+            {% endif %}
+            {% if user.is_authenticated  %}
+            <li><a href="/accounts/userprofile/">User profile</a></li><br>
+            {% endif %}
+            <li><a href="/admin/">Admin</a></li>
+            </ul>
+        {% endblock %}
+
+    </div>
+    <div id="content">
+        {% if messages %}
+                <ul class="messages" style="color:red;">
+            {% for message in messages %}
+                <h3 class="{{ message.tags }}">{{ message }}</h3>
+            {% endfor %}
+                </ul>
+        {% endif %}
+        <h3 style="color:brown;">{{ errmsg }}</h3>
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</div>
+<script>document.getElementById("maincurrency").value = "{{ request.session.curcode }}"</script>
+<br /><br />
+</body>
+
+</html>

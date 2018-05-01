@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+<head>
+    <title></title>
+</head>
+<body>
+
+{% block content %}
+<h2 align="left" style="color:blue;">{{ auction_title }}</h2>
+
+<h4 align="left" style="color:brown;">Bids history </h4>
+
+{% for bid in bids %}
+    <table class="card_history">
+    <tr>
+    <td>
+        {{ bid.bid_amount }} |----------------------|
+        {{ bid.timestamp|date:"d.m.Y H:i"}} |----------------------|
+        {{ bid.bidder }}
+        {{ max_bid }}
+    </td>
+    </tr>
+
+    </table>
+
+    <p></p>
+{% endfor %}
+    <p></p>
+
+{% endblock %}
+</body>
+</html>
