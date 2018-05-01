@@ -69,13 +69,21 @@ def create_auction(request, auction_id=None):
                         auction.state = 'active'
                         auction.save()
 
-                        user_email = str(request.user.email)
-                        user_name = str(request.user.first_name)
+                        user_email = request.user.email
+                        user_name = request.user.first_name
+                        bid_receiver_email = auction.seller.email
+                        bid_receiver_name = auction.seller.first_name
 
-                        send_mail('An auction is created!',
-                                  'Hi' + user_name + ' !, ' +
-                                  'you have made an auction named ' + str(auction.title) + '.',
+                        send_mail('A bid has been placed!',
+                                  'Hi ' + str(user_name) + ' !, ' +
+                                  'you have placed a bid for the auction ' + str(auction.title) + '.',
                                   'noreplay@yaas.com', [user_email], fail_silently=False)
+
+                        send_mail('A bid has been received!',
+                                  'Hi ' + str(bid_receiver_name) + ' !, ' +
+                                  'you have received a bid for the auction ' + str(auction.title) + '.',
+                                  'noreplay@yaas.com', [bid_receiver_email], fail_silently=False)
+                        
                         messages.success(request, 'Your auction is created successfully!')
                         return redirect('/showauction/' + auction.id)
                     else:
